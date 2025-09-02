@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskFlow Pro - Professional Freelance Task Manager</title>
-
+	
 	<!-- PWA meta for iOS -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="default">
-		<meta name="apple-mobile-web-app-title" content="TaskFlow Pro">
-		<link rel="apple-touch-icon" href="icons/icon-192.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="apple-mobile-web-app-title" content="TaskFlow Pro">
+	<link rel="apple-touch-icon" href="icons/icon-192.png">
 
-	<!-- Web App Manifest -->
-	<link rel="manifest" href="manifest.json">
+<!-- Web App Manifest -->
+<link rel="manifest" href="manifest.json">
 
-	<!-- Theme Color (Android + some iOS cases) -->
-	<meta name="theme-color" content="#4f46e5">
+<!-- Theme Color (Android + some iOS cases) -->
+<meta name="theme-color" content="#4f46e5">
 
+    <title>TaskFlow Pro - Professional Freelance Task Manager</title>
     
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -48,7 +48,7 @@
         .nav-tab { flex: 1; padding: 16px; text-align: center; background: none; border: none; font-size: 14px; font-weight: 600; color: #6b7280; cursor: pointer; transition: all 0.3s ease; position: relative; }
         .nav-tab.active { color: #4f46e5; }
         .nav-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: #4f46e5; border-radius: 3px 3px 0 0; }
-        .content { padding: 24px; min-height: calc(100vh - 200px); }
+        .content { padding: 16px; min-height: calc(100vh - 200px); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
@@ -64,16 +64,18 @@
         .task-item.medium { border-left-color: #f59e0b; }
         .task-title { font-weight: 600; color: #1f2937; margin-bottom: 4px; }
         .task-meta { font-size: 12px; color: #6b7280; }
-        .calendar { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .calendar-nav { background: none; border: none; font-size: 18px; color: #4f46e5; cursor: pointer; padding: 8px; }
-        .calendar-month { font-weight: 600; color: #1f2937; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
-        .calendar-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 12px; border-radius: 6px; position: relative; min-height: 32px; background: white; color: #1f2937; border: 1px solid #e5e7eb; transition: all 0.2s ease; cursor: pointer; }
-        .calendar-day.header { font-weight: 600; color: white; font-size: 12px; background: #4f46e5; border: 1px solid #4338ca; cursor: default; }
+        
+        /* Responsive Calendar Styles */
+        .calendar { background: white; border-radius: 16px; padding: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 100%; max-width: 100%; overflow: hidden; margin: 0 auto; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .calendar-nav { background: none; border: none; font-size: 18px; color: #4f46e5; cursor: pointer; padding: 8px; min-width: 44px; display: flex; align-items: center; justify-content: center; }
+        .calendar-month { font-weight: 600; color: #1f2937; font-size: 16px; text-align: center; flex: 1; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; width: 100%; }
+        .calendar-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 10px; border-radius: 4px; position: relative; min-height: 32px; background: white; color: #1f2937; border: 1px solid #e5e7eb; transition: all 0.2s ease; cursor: pointer; }
+        .calendar-day.header { font-weight: 600; color: white; font-size: 10px; background: #4f46e5; border: 1px solid #4338ca; cursor: default; }
         .calendar-day.today { background: #4f46e5; color: white; border: 1px solid #4338ca; }
         .calendar-day.other-month { color: #9ca3af; background: #f9fafb; }
-        .calendar-day.has-task::after { content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; background: #f59e0b; border-radius: 50%; }
+        .calendar-day.has-task::after { content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 3px; height: 3px; background: #f59e0b; border-radius: 50%; }
         .calendar-day:not(.header):hover { background: #f0f4ff; border-color: #4f46e5; }
         .calendar-tooltip { position: absolute; background: rgba(0, 0, 0, 0.9); color: white; padding: 8px 12px; border-radius: 6px; font-size: 12px; z-index: 1000; pointer-events: none; opacity: 0; transition: opacity 0.2s ease; max-width: 200px; white-space: normal; line-height: 1.4; }
         .calendar-tooltip.show { opacity: 1; }
@@ -175,12 +177,17 @@
         .file-info { display: flex; align-items: center; gap: 12px; flex: 1; }
         .file-icon { font-size: 24px; }
         .file-details { flex: 1; }
-        .file-name { font-weight: 600; color: #1f2937; margin-bottom: 2px; }
+        .file-name { font-weight: 600; color: #1f2937; margin-bottom: 2px; cursor: pointer; }
+        .file-name:hover { color: #4f46e5; text-decoration: underline; }
         .file-size { font-size: 12px; color: #6b7280; }
         .file-actions { display: flex; gap: 8px; }
         .file-action-btn { background: none; border: none; color: #6b7280; cursor: pointer; padding: 4px; border-radius: 4px; transition: all 0.2s ease; }
         .file-action-btn:hover { background: #f3f4f6; color: #374151; }
         .file-action-btn.delete:hover { background: #fee2e2; color: #dc2626; }
+        .file-action-btn.view { color: #4f46e5; }
+        .file-action-btn.view:hover { background: #f0f4ff; color: #4338ca; }
+        .file-action-btn.download { color: #10b981; }
+        .file-action-btn.download:hover { background: #f0fdf4; color: #059669; }
         .media-preview { max-width: 100%; border-radius: 8px; margin-top: 8px; }
         .media-preview img { max-width: 100%; height: auto; border-radius: 8px; }
         .media-preview video, .media-preview audio { width: 100%; border-radius: 8px; }
@@ -241,7 +248,37 @@
         .empty-state { text-align: center; padding: 40px 20px; color: #6b7280; }
         .empty-state-icon { font-size: 48px; margin-bottom: 16px; }
         .loading { text-align: center; padding: 20px; color: #6b7280; }
-        @media (min-width: 768px) { .container { max-width: 768px; margin-top: 40px; border-radius: 20px; min-height: calc(100vh - 80px); } .content { padding: 32px; } .projects-grid { grid-template-columns: repeat(2, 1fr); } }
+        
+        /* File Viewer Modal */
+        .file-viewer-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
+        .file-viewer-modal.active { display: flex; }
+        .file-viewer-content { background: white; border-radius: 16px; padding: 24px; max-width: 90vw; max-height: 90vh; overflow: auto; position: relative; }
+        .file-viewer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e5e7eb; }
+        .file-viewer-title { font-size: 18px; font-weight: 600; color: #1f2937; }
+        .file-viewer-media { text-align: center; }
+        .file-viewer-media img { max-width: 100%; max-height: 70vh; border-radius: 8px; }
+        .file-viewer-media video, .file-viewer-media audio { max-width: 100%; border-radius: 8px; }
+        
+        /* Mobile Responsive Improvements */
+        @media (max-width: 480px) {
+            .content { padding: 12px; }
+            .calendar { padding: 8px; }
+            .calendar-day { min-height: 28px; font-size: 9px; }
+            .calendar-day.header { font-size: 9px; }
+            .calendar-month { font-size: 14px; }
+            .calendar-nav { font-size: 16px; padding: 6px; }
+            .dashboard-section { margin-bottom: 24px; }
+            .section-title { font-size: 18px; }
+        }
+        
+        @media (min-width: 768px) { 
+            .container { max-width: 768px; margin-top: 40px; border-radius: 20px; min-height: calc(100vh - 80px); } 
+            .content { padding: 32px; } 
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .calendar { padding: 20px; }
+            .calendar-day { min-height: 40px; font-size: 12px; }
+            .calendar-day.header { font-size: 12px; }
+        }
     </style>
 </head>
 <body>
@@ -598,6 +635,20 @@
             <div class="modal-actions">
                 <button class="cancel-btn" onclick="closeAddProject()">Cancel</button>
                 <button class="save-btn" id="project-save-btn" onclick="saveNewProject()">Create Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Viewer Modal -->
+    <div id="file-viewer-modal" class="file-viewer-modal">
+        <div class="file-viewer-content">
+            <div class="file-viewer-header">
+                <div class="file-viewer-title" id="file-viewer-title">File Viewer</div>
+                <button class="close-btn" onclick="closeFileViewer()">×</button>
+            </div>
+            
+            <div class="file-viewer-media" id="file-viewer-media">
+                <!-- File content will be displayed here -->
             </div>
         </div>
     </div>
@@ -1462,13 +1513,27 @@
                                 <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                         `;
                         
-                        note.files.forEach(file => {
+                        note.files.forEach((file, index) => {
                             const fileIcon = getFileIcon(file.type);
                             const fileTypeClass = getFileTypeClass(file.type);
+                            const canView = canViewFile(file.type);
+                            const actionText = canView ? 'View' : 'Download';
+                            const actionIcon = canView ? '👁️' : '⬇️';
+                            
                             filesHTML += `
-                                <div style="display: flex; align-items: center; gap: 4px; background: #f9fafb; padding: 4px 8px; border-radius: 6px; font-size: 12px;">
-                                    <span class="${fileTypeClass}">${fileIcon}</span>
-                                    <span>${file.name}</span>
+                                <div class="file-item" style="margin-bottom: 4px; padding: 8px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb;">
+                                    <div class="file-info">
+                                        <span class="file-icon ${fileTypeClass}">${fileIcon}</span>
+                                        <div class="file-details">
+                                            <div class="file-name" onclick="handleFileAction('${note.id}', ${index})">${file.name}</div>
+                                            <div class="file-size">${formatFileSize(file.size)}</div>
+                                        </div>
+                                    </div>
+                                    <div class="file-actions">
+                                        <button class="file-action-btn ${canView ? 'view' : 'download'}" onclick="handleFileAction('${note.id}', ${index})" title="${actionText} file">
+                                            ${actionIcon}
+                                        </button>
+                                    </div>
                                 </div>
                             `;
                         });
@@ -2116,31 +2181,33 @@
                 document.getElementById('new-note-content').value = note.content || '';
                 document.getElementById('note-save-btn').textContent = 'Save Changes';
                 document.getElementById('note-save-btn').onclick = () => saveEditedNote(noteId);
+                noteFiles = note.files || [];
+                renderNoteFiles();
                 document.getElementById('add-note-modal').classList.add('active');
             }
         }
         
-        // Save edited items
+        // Save edited items functions
         function saveEditedJob(jobId) {
             const name = document.getElementById('new-job-name').value;
             const description = document.getElementById('new-job-description').value;
-            const jobNotes = document.getElementById('new-job-notes').value;
+            const notes = document.getElementById('new-job-notes').value;
             
             if (!name.trim()) {
                 alert('Please enter a job name');
                 return;
             }
             
-            jobs[jobId] = {
-                ...jobs[jobId],
-                name,
-                description,
-                notes: jobNotes
-            };
+            jobs[jobId].name = name;
+            jobs[jobId].description = description;
+            jobs[jobId].notes = notes;
+            jobs[jobId].updatedAt = new Date().toISOString();
             
             saveToStorage('jobs', jobs);
             renderJobs();
-            alert('Job updated successfully!');
+            updateDashboard();
+            
+            alert(`Job "${name}" updated successfully!`);
             closeAddJob();
         }
         
@@ -2150,28 +2217,28 @@
             const status = document.getElementById('new-project-status').value;
             const priority = document.getElementById('new-project-priority').value;
             const due = document.getElementById('new-project-due').value;
-            const projectNotes = document.getElementById('new-project-notes').value;
+            const notes = document.getElementById('new-project-notes').value;
             
             if (!title.trim()) {
                 alert('Please enter a project title');
                 return;
             }
             
-            jobs[jobId].projects[projectId] = {
-                ...jobs[jobId].projects[projectId],
-                title,
-                description,
-                status,
-                priority,
-                dueDate: due || null,
-                notes: projectNotes
-            };
+            const project = jobs[jobId].projects[projectId];
+            project.title = title;
+            project.description = description;
+            project.status = status;
+            project.priority = priority;
+            project.dueDate = due || null;
+            project.notes = notes;
+            project.updatedAt = new Date().toISOString();
             
             saveToStorage('jobs', jobs);
             renderJobs();
             updateDashboard();
             renderCalendar();
-            alert('Project updated successfully!');
+            
+            alert(`Project "${title}" updated successfully!`);
             closeAddProject();
         }
         
@@ -2181,28 +2248,28 @@
             const status = document.getElementById('new-task-status').value;
             const priority = document.getElementById('new-task-priority').value;
             const due = document.getElementById('new-task-due').value;
-            const taskNotes = document.getElementById('new-task-notes').value;
+            const notes = document.getElementById('new-task-notes').value;
             
             if (!name.trim()) {
                 alert('Please enter a task name');
                 return;
             }
             
-            jobs[jobId].projects[projectId].tasks[taskId] = {
-                ...jobs[jobId].projects[projectId].tasks[taskId],
-                name,
-                description,
-                status,
-                priority,
-                dueDate: due || null,
-                notes: taskNotes
-            };
+            const task = jobs[jobId].projects[projectId].tasks[taskId];
+            task.name = name;
+            task.description = description;
+            task.status = status;
+            task.priority = priority;
+            task.dueDate = due || null;
+            task.notes = notes;
+            task.updatedAt = new Date().toISOString();
             
             saveToStorage('jobs', jobs);
             renderJobs();
             updateDashboard();
             renderCalendar();
-            alert('Task updated successfully!');
+            
+            alert(`Task "${name}" updated successfully!`);
             closeAddTask();
         }
         
@@ -2215,19 +2282,19 @@
                 return;
             }
             
-            notes[noteId] = {
-                ...notes[noteId],
-                title,
-                content
-            };
+            notes[noteId].title = title;
+            notes[noteId].content = content;
+            notes[noteId].files = noteFiles;
+            notes[noteId].updatedAt = new Date().toISOString();
             
             saveToStorage('notes', notes);
             renderNotes();
-            alert('Note updated successfully!');
+            
+            alert(`Note "${title}" updated successfully!`);
             closeAddNote();
         }
         
-        // Add Job Modal Functions
+        // Job Modal Functions
         function addJob() {
             document.getElementById('job-modal-title').textContent = 'Add New Job';
             document.getElementById('job-save-btn').textContent = 'Create Job';
@@ -2245,7 +2312,7 @@
         function saveNewJob() {
             const name = document.getElementById('new-job-name').value;
             const description = document.getElementById('new-job-description').value;
-            const jobNotes = document.getElementById('new-job-notes').value;
+            const notes = document.getElementById('new-job-notes').value;
             
             if (!name.trim()) {
                 alert('Please enter a job name');
@@ -2257,7 +2324,7 @@
                 id: jobId,
                 name,
                 description,
-                notes: jobNotes,
+                notes,
                 projects: {},
                 createdAt: new Date().toISOString()
             };
@@ -2267,15 +2334,16 @@
             
             saveToStorage('jobs', jobs);
             renderJobs();
+            updateDashboard();
             
             alert(`Job "${name}" created successfully!`);
             closeAddJob();
         }
         
-        // Add Project Modal Functions
+        // Project Modal Functions
         function addProject() {
             if (!currentJobTab) {
-                alert('Please create a job first');
+                alert('Please select a job first');
                 return;
             }
             
@@ -2301,10 +2369,15 @@
             const status = document.getElementById('new-project-status').value;
             const priority = document.getElementById('new-project-priority').value;
             const due = document.getElementById('new-project-due').value;
-            const projectNotes = document.getElementById('new-project-notes').value;
+            const notes = document.getElementById('new-project-notes').value;
             
             if (!title.trim()) {
                 alert('Please enter a project title');
+                return;
+            }
+            
+            if (!currentJobTab) {
+                alert('Please select a job first');
                 return;
             }
             
@@ -2316,7 +2389,7 @@
                 status,
                 priority,
                 dueDate: due || null,
-                notes: projectNotes,
+                notes,
                 tasks: {},
                 createdAt: new Date().toISOString()
             };
@@ -2335,13 +2408,13 @@
             closeAddProject();
         }
         
-        // Add Note Modal Functions
+        // Note Modal Functions
         function addNote() {
             document.getElementById('note-modal-title').textContent = 'Add New Note';
             document.getElementById('note-save-btn').textContent = 'Create Note';
             document.getElementById('note-save-btn').onclick = saveNewNote;
             noteFiles = [];
-            document.getElementById('note-uploaded-files').innerHTML = '';
+            renderNoteFiles();
             document.getElementById('add-note-modal').classList.add('active');
         }
         
@@ -2350,7 +2423,7 @@
             document.getElementById('new-note-title').value = '';
             document.getElementById('new-note-content').value = '';
             noteFiles = [];
-            document.getElementById('note-uploaded-files').innerHTML = '';
+            renderNoteFiles();
         }
         
         function saveNewNote() {
@@ -2387,7 +2460,7 @@
         
         function handleFileSelect(event) {
             const files = Array.from(event.target.files);
-            files.forEach(file => addFileToNote(file));
+            processFiles(files);
         }
         
         function handleFileDrop(event) {
@@ -2398,7 +2471,7 @@
             uploadArea.classList.remove('dragover');
             
             const files = Array.from(event.dataTransfer.files);
-            files.forEach(file => addFileToNote(file));
+            processFiles(files);
         }
         
         function handleDragOver(event) {
@@ -2413,19 +2486,25 @@
             event.currentTarget.classList.remove('dragover');
         }
         
-        function addFileToNote(file) {
-            const fileData = {
-                name: file.name,
-                size: file.size,
-                type: file.type,
-                lastModified: file.lastModified
-            };
-            
-            noteFiles.push(fileData);
-            renderUploadedFiles();
+        function processFiles(files) {
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileData = {
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        data: e.target.result,
+                        uploadedAt: new Date().toISOString()
+                    };
+                    noteFiles.push(fileData);
+                    renderNoteFiles();
+                };
+                reader.readAsDataURL(file);
+            });
         }
         
-        function renderUploadedFiles() {
+        function renderNoteFiles() {
             const container = document.getElementById('note-uploaded-files');
             
             if (noteFiles.length === 0) {
@@ -2437,7 +2516,7 @@
             noteFiles.forEach((file, index) => {
                 const fileIcon = getFileIcon(file.type);
                 const fileTypeClass = getFileTypeClass(file.type);
-                const fileSize = formatFileSize(file.size);
+                const canView = canViewFile(file.type);
                 
                 filesHTML += `
                     <div class="file-item">
@@ -2445,13 +2524,13 @@
                             <span class="file-icon ${fileTypeClass}">${fileIcon}</span>
                             <div class="file-details">
                                 <div class="file-name">${file.name}</div>
-                                <div class="file-size">${fileSize}</div>
+                                <div class="file-size">${formatFileSize(file.size)}</div>
                             </div>
                         </div>
                         <div class="file-actions">
-                            <button class="file-action-btn delete" onclick="removeFileFromNote(${index})" title="Remove file">
-                                🗑️
-                            </button>
+                            ${canView ? `<button class="file-action-btn view" onclick="previewFile(${index})" title="Preview file">👁️</button>` : ''}
+                            <button class="file-action-btn download" onclick="downloadFile(${index})" title="Download file">⬇️</button>
+                            <button class="file-action-btn delete" onclick="removeFile(${index})" title="Remove file">🗑️</button>
                         </div>
                     </div>
                 `;
@@ -2460,11 +2539,83 @@
             container.innerHTML = filesHTML;
         }
         
-        function removeFileFromNote(index) {
+        function removeFile(index) {
             noteFiles.splice(index, 1);
-            renderUploadedFiles();
+            renderNoteFiles();
         }
         
+        function previewFile(index) {
+            const file = noteFiles[index];
+            showFileViewer(file);
+        }
+        
+        function downloadFile(index) {
+            const file = noteFiles[index];
+            const link = document.createElement('a');
+            link.href = file.data;
+            link.download = file.name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function handleFileAction(noteId, fileIndex) {
+            const note = notes[noteId];
+            if (!note || !note.files || !note.files[fileIndex]) return;
+            
+            const file = note.files[fileIndex];
+            
+            if (canViewFile(file.type)) {
+                showFileViewer(file);
+            } else {
+                // Download the file
+                const link = document.createElement('a');
+                link.href = file.data;
+                link.download = file.name;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+        
+        function showFileViewer(file) {
+            document.getElementById('file-viewer-title').textContent = file.name;
+            const mediaContainer = document.getElementById('file-viewer-media');
+            
+            if (file.type.startsWith('image/')) {
+                mediaContainer.innerHTML = `<img src="${file.data}" alt="${file.name}" class="media-preview">`;
+            } else if (file.type.startsWith('video/')) {
+                mediaContainer.innerHTML = `<video controls class="media-preview"><source src="${file.data}" type="${file.type}">Your browser does not support video playback.</video>`;
+            } else if (file.type.startsWith('audio/')) {
+                mediaContainer.innerHTML = `<audio controls class="media-preview"><source src="${file.data}" type="${file.type}">Your browser does not support audio playback.</audio>`;
+            } else {
+                mediaContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #6b7280;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">${getFileIcon(file.type)}</div>
+                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">${file.name}</div>
+                        <div style="font-size: 14px; margin-bottom: 16px;">File size: ${formatFileSize(file.size)}</div>
+                        <button class="add-btn" onclick="downloadFileFromViewer('${file.data}', '${file.name}')">Download File</button>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('file-viewer-modal').classList.add('active');
+        }
+        
+        function closeFileViewer() {
+            document.getElementById('file-viewer-modal').classList.remove('active');
+        }
+        
+        function downloadFileFromViewer(data, filename) {
+            const link = document.createElement('a');
+            link.href = data;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // File utility functions
         function getFileIcon(type) {
             if (type.startsWith('image/')) return '🖼️';
             if (type.startsWith('video/')) return '🎥';
@@ -2472,9 +2623,10 @@
             if (type.includes('pdf')) return '📄';
             if (type.includes('word') || type.includes('document')) return '📝';
             if (type.includes('excel') || type.includes('spreadsheet')) return '📊';
-            if (type.includes('powerpoint') || type.includes('presentation')) return '📋';
-            if (type.includes('zip') || type.includes('rar')) return '📦';
-            return '📁';
+            if (type.includes('powerpoint') || type.includes('presentation')) return '📽️';
+            if (type.includes('zip') || type.includes('rar') || type.includes('archive')) return '📦';
+            if (type.includes('text')) return '📄';
+            return '📎';
         }
         
         function getFileTypeClass(type) {
@@ -2485,6 +2637,10 @@
             return 'file-type-other';
         }
         
+        function canViewFile(type) {
+            return type.startsWith('image/') || type.startsWith('video/') || type.startsWith('audio/');
+        }
+        
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
             const k = 1024;
@@ -2493,22 +2649,214 @@
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
         
-        // Inline editing functions (placeholder for future implementation)
-        function makeInlineEditable(element, type, field) {
-            // Placeholder for inline editing functionality
-            console.log('Inline editing:', type, field, element.textContent);
+        // Inline editing functions
+        function makeInlineEditable(element, itemType, field) {
+            if (element.querySelector('.inline-input')) return; // Already editing
+            
+            const originalText = element.textContent;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = originalText;
+            input.className = 'inline-input';
+            
+            element.innerHTML = '';
+            element.appendChild(input);
+            element.classList.add('editing');
+            
+            input.focus();
+            input.select();
+            
+            function saveEdit() {
+                const newValue = input.value.trim();
+                if (newValue && newValue !== originalText) {
+                    updateInlineField(element, itemType, field, newValue);
+                }
+                element.textContent = newValue || originalText;
+                element.classList.remove('editing');
+            }
+            
+            function cancelEdit() {
+                element.textContent = originalText;
+                element.classList.remove('editing');
+            }
+            
+            input.addEventListener('blur', saveEdit);
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    saveEdit();
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    cancelEdit();
+                }
+            });
         }
         
-        function makeInlineDropdown(element, type, field) {
-            // Placeholder for inline dropdown functionality
-            console.log('Inline dropdown:', type, field, element.textContent);
+        function makeInlineDropdown(element, itemType, field) {
+            if (element.querySelector('.inline-select')) return; // Already editing
+            
+            const originalText = element.textContent;
+            let options = [];
+            
+            if (field === 'status') {
+                if (itemType === 'project') {
+                    options = [
+                        { value: 'active', text: 'Active' },
+                        { value: 'pending', text: 'Pending' },
+                        { value: 'completed', text: 'Completed' },
+                        { value: 'on-hold', text: 'On Hold' }
+                    ];
+                } else if (itemType === 'task') {
+                    options = [
+                        { value: 'not-started', text: 'Not Started' },
+                        { value: 'in-progress', text: 'In Progress' },
+                        { value: 'completed', text: 'Completed' },
+                        { value: 'cancelled', text: 'Cancelled' }
+                    ];
+                }
+            } else if (field === 'priority') {
+                options = [
+                    { value: 'low', text: 'Low' },
+                    { value: 'medium', text: 'Medium' },
+                    { value: 'high', text: 'High' }
+                ];
+            }
+            
+            const select = document.createElement('select');
+            select.className = 'inline-select';
+            
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.value;
+                optionElement.textContent = option.text;
+                if (option.text.toLowerCase() === originalText.toLowerCase()) {
+                    optionElement.selected = true;
+                }
+                select.appendChild(optionElement);
+            });
+            
+            element.style.position = 'relative';
+            element.appendChild(select);
+            element.classList.add('editing');
+            
+            select.focus();
+            
+            function saveEdit() {
+                const selectedOption = options.find(opt => opt.value === select.value);
+                if (selectedOption && selectedOption.text !== originalText) {
+                    updateInlineField(element, itemType, field, select.value);
+                    element.textContent = selectedOption.text;
+                    
+                    // Update CSS classes for status
+                    if (field === 'status') {
+                        element.className = element.className.replace(/status-\w+/g, '');
+                        element.classList.add(`status-${select.value}`);
+                    }
+                } else {
+                    element.textContent = originalText;
+                }
+                
+                element.classList.remove('editing');
+                select.remove();
+            }
+            
+            function cancelEdit() {
+                element.textContent = originalText;
+                element.classList.remove('editing');
+                select.remove();
+            }
+            
+            select.addEventListener('blur', saveEdit);
+            select.addEventListener('change', saveEdit);
+            select.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    cancelEdit();
+                }
+            });
         }
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978bc5c4d05085b2',t:'MTc1NjgwMzE2MC4wMDAwMDA='};
-var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';
-document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');
-a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);
-else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+        
+        function updateInlineField(element, itemType, field, newValue) {
+            const container = element.closest(`[data-${itemType}-id]`);
+            if (!container) return;
+            
+            if (itemType === 'project') {
+                const jobId = container.dataset.jobId;
+                const projectId = container.dataset.projectId;
+                
+                if (jobs[jobId] && jobs[jobId].projects[projectId]) {
+                    jobs[jobId].projects[projectId][field] = newValue;
+                    jobs[jobId].projects[projectId].updatedAt = new Date().toISOString();
+                }
+            } else if (itemType === 'task') {
+                const jobId = container.dataset.jobId;
+                const projectId = container.dataset.projectId;
+                const taskId = container.dataset.taskId;
+                
+                if (jobs[jobId] && jobs[jobId].projects[projectId] && jobs[jobId].projects[projectId].tasks[taskId]) {
+                    jobs[jobId].projects[projectId].tasks[taskId][field] = newValue;
+                    jobs[jobId].projects[projectId].tasks[taskId].updatedAt = new Date().toISOString();
+                }
+            }
+            
+            saveToStorage('jobs', jobs);
+            updateDashboard();
+            renderCalendar();
+        }
+        
+        // Click outside to close modals
+        document.addEventListener('click', function(event) {
+            // Close modals when clicking outside
+            const modals = document.querySelectorAll('.task-detail-modal.active');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Escape key to close modals
+            if (event.key === 'Escape') {
+                const activeModal = document.querySelector('.task-detail-modal.active');
+                if (activeModal) {
+                    activeModal.classList.remove('active');
+                }
+                
+                const contextMenu = document.getElementById('context-menu');
+                if (contextMenu.style.display === 'block') {
+                    hideContextMenu();
+                }
+            }
+            
+            // Ctrl/Cmd + N for new items
+            if ((event.ctrlKey || event.metaKey) && event.key === 'n') {
+                event.preventDefault();
+                
+                if (currentMainTab === 'progress') {
+                    if (Object.keys(jobs).length === 0) {
+                        addJob();
+                    } else {
+                        addProject();
+                    }
+                } else if (currentMainTab === 'notes') {
+                    addNote();
+                }
+            }
+        });
+        
+        console.log('🚀 TaskFlow Pro fully loaded with all features!')
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;
+	if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978c116a119f8520',t:'MTc1NjgwNjI1OC4wMDAwMDA='};
+		var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';
+		document.getElementsByTagName('head')[0].appendChild(a);";
+		b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');
+		a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';
+		a.style.visibility='hidden';document.body.appendChild(a);
+	if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);
+	else{var e=document.onreadystatechange||function(){};
+	document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 
 <script>
 if ('serviceWorker' in navigator) {
