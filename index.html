@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceFlow Pro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-wrapper">
+            <h1 class="logo">FinanceFlow</h1>
+            <nav id="main-nav">
+                <button data-tab="dashboard" class="nav-btn active">Dashboard</button>
+                <button data-tab="accounts" class="nav-btn">Accounts</button>
+                <button data-tab="transactions" class="nav-btn">Transactions</button>
+                <button data-tab="reports" class="nav-btn">Reports</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="app-root">
+        <div class="loader">Initializing Engine...</div>
+    </main>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-title">Edit Item</h3>
+                <button id="modal-close" class="close-btn">&times;</button>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
